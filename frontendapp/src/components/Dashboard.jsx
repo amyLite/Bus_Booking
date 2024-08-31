@@ -5,7 +5,7 @@ import BusSearch from './BusSearch';
 const Dashboard = ({ token }) => {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
-  const [bookingHistory, setBookingHistory] = useState([]);
+  const [bookingHistory, setBookingHistory] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -38,8 +38,7 @@ const Dashboard = ({ token }) => {
 
   const fetchBookingHistory = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/booking_history',
-      {"user_id":email},
+      const response = await axios.get('http://localhost:8000/booking_history',
       {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -47,8 +46,9 @@ const Dashboard = ({ token }) => {
         },
       });
       
-      console.log("Resposes:", bookingHistory)
-      setBookingHistory(response.data);
+      const data = Array.isArray(response.data) ? response.data : [response.data];
+      setBookingHistory(data);
+      
       setError('');
     } catch (err) {
       console.error('Error fetching booking history:', err);
@@ -59,6 +59,7 @@ const Dashboard = ({ token }) => {
   return (
     <div>
       <h2>Dashboard</h2>
+      {console.log("booking history: ", bookingHistory)}
       {user ? (
         <div>
           <p>Welcome, {user.email}!</p>
