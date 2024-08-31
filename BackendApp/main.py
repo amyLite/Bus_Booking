@@ -164,11 +164,11 @@ async def book_ticket(request: BookTicketRequest, current_user: str = Depends(ge
     return {"message": "Ticket booked successfully", 
     'details':bookings[current_user["email"]]}
 
-@app.post("/booking_history")
-async def get_booking_history(request: User, current_user: str = Depends(get_current_user)):
-    user_bookings = bookings.get(request.user_id)
+@app.get("/booking_history")
+async def get_booking_history(user_id: str = Depends(get_current_user)):
+    user_bookings = bookings.get(user_id["email"])
     
     if not user_bookings:
-        return "No booking history found for this user"
+        raise HTTPException(status_code=404, detail="No booking history found for this user")
     
     return user_bookings
