@@ -53,7 +53,7 @@ const BlockSeats = ({ token }) => {
           'Content-Type': 'application/json',
         },
       });
-      setBookingId(response.data.booking_id);
+      setBookingId(response.data.details.booking_id);
       setMessage(response.data.message);
       setError('');
     } catch (err) {
