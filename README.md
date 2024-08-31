@@ -59,3 +59,15 @@ npm install
 Start the React app:
 npm start
 
+Use Crentials:
+username: user@example.com
+password: password123
+
+Exapmle:
+Source: Delhi
+Destination: Agra
+Date 2024-09-01
+
+Pickup points: Noida
+Seats: 13,14
+
