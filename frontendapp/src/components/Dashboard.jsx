@@ -74,6 +74,8 @@ const Dashboard = ({ token }) => {
                 <li key={booking.booking_id}>
                     <p>User name: {booking.user}</p>
                     <p>Booking ID: {booking.booking_id}</p>
+                    <p>PickUp Point: {booking.pick_up_point}</p>
+                    <p>Bus Name: {booking.bus_name}</p>
                     <p>Booked On: {booking.booked_on}</p>
                     <p>Seat Numbers: {booking.blocked_seats}</p>
                 </li>

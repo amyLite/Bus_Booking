@@ -134,6 +134,7 @@ async def block_seats(request: BlockSeatsRequest, current_user: str = Depends(ge
     blocking_id = str(uuid.uuid4())
     blocked_seats[blocking_id] = {
         "bus_id": request.bus_id,
+        "bus_name":bus["bus_name"],
         "pickup_point": request.pickup_point,
         "seat_numbers": request.seat_numbers
     }
@@ -158,6 +159,8 @@ async def book_ticket(request: BookTicketRequest, current_user: str = Depends(ge
     bookings[current_user["email"]] = {
         "user":current_user["email"],
         "booking_id":booking_id,
+        "bus_name": blocked_seats[request.blocking_id]["bus_name"],
+        "pick_up_point": blocked_seats[request.blocking_id]["pickup_point"],
         "booked_on":datetime.datetime.now(),
         "blocked_seats":blocked_seats[request.blocking_id]["seat_numbers"]
     }
