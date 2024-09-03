@@ -7,6 +7,7 @@ const BlockSeats = ({ token }) => {
   const { busId } = useParams();
   const [pickupPoint, setPickupPoint] = useState('');
   const [seatNumbers, setSeatNumbers] = useState('');
+  const [availableSeats, setAvailableSeats] = useState();
   const [blockingId, setBlockingId] = useState('');
   const [bookingId, setBookingId] = useState('');
   const [message, setMessage] = useState('');
@@ -33,6 +34,7 @@ const BlockSeats = ({ token }) => {
       console.log("Responses: ", response)
       setBlockingId(response.data.blocking_id);
       setMessage(response.data.message);
+      setAvailableSeats(response.data.available_seats)
       setSeatsBlocked(response.data.seats_blocked)
       setError('');
     } catch (err) {
@@ -91,6 +93,7 @@ const BlockSeats = ({ token }) => {
         <hr/>
 
         {message && <p>{message}</p>}
+        {availableSeats && <><h4>Available Seats are :</h4>{availableSeats.map(seat => (<p>{seat}</p>))}</>}
       {blockingId && (
         <div>
         {!bookingId &&

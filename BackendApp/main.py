@@ -126,6 +126,7 @@ async def block_seats(request: BlockSeatsRequest, current_user: str = Depends(ge
     if not requested_seats.issubset(available_seats):
             return {
         "message": "Some seats are not available",
+        "available_seats":[seats for seats in available_seats ]
     }
     
     # Block seats
